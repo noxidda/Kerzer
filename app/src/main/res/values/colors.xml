@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Core -->
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+
+    <!-- Apple Dark System Grays -->
+    <color name="gray_1">#8E8E93</color>
+    <color name="gray_2">#636366</color>
+    <color name="gray_3">#48484A</color>
+    <color name="gray_4">#3A3A3C</color>
+    <color name="gray_5">#2C2C2E</color>
+    <color name="gray_6">#1C1C1E</color>
+
+    <!-- Semantic -->
+    <color name="bg_primary">#000000</color>
+    <color name="bg_secondary">#1C1C1E</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#636366</color>
+    <color name="text_dark">#FFFFFF</color>
+
+    <!-- Legacy compatibility -->
+    <color name="dark_gray">#1C1C1E</color>
+    <color name="mid_gray">#2C2C2E</color>
+    <color name="light_gray">#48484A</color>
+    <color name="accent_gray">#636366</color>
+    <color name="bg_cartoon">#000000</color>
+    <color name="card_pink">#1C1C1E</color>
+    <color name="card_blue">#1C1C1E</color>
+    <color name="card_green">#1C1C1E</color>
+</resources>

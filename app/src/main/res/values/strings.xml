@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Kerzer</string>
+    <string name="total_screen_time">Total Screen Time</string>
+    <string name="app_wise_usage">App Usage</string>
+    <string name="focus_mode">Focus Mode</string>
+    <string name="parental_control">Parental Control</string>
+    <string name="set_limit">Set Limit (Mins)</string>
+    <string name="save">Save</string>
+    <string name="grant_permissions">Please grant permissions in Settings to function correctly.</string>
+    <string name="app_info">Kerzer tracks daily screen time, shows app usage, and lets you set focus and parental limits to reduce distractions.</string>
+    <string name="info_button">App info</string>
+</resources>

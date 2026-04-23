@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#000000"
+    android:fitsSystemWindows="true">
+
+    <!-- Top spacer -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <!-- Large header -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Focus"
+        android:textSize="34sp"
+        android:fontFamily="sans-serif-black"
+        android:letterSpacing="-0.02"
+        android:textColor="#FFFFFF"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Block distractions, stay sharp"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif"
+        android:textColor="#98989D"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="16dp" />
+
+    <!-- Info banner -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_card_elevated"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
+        android:padding="18dp"
+        android:gravity="center_vertical">
+
+        <FrameLayout
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/bg_icon_circle_white"
+            android:layout_marginEnd="14dp">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center"
+                android:src="@android:drawable/ic_menu_info_details"
+                app:tint="#000000" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Toggle the apps you want to block when Focus Mode is switched on from the home screen."
+            android:textColor="#98989D"
+            android:fontFamily="sans-serif"
+            android:textSize="12sp"
+            android:lineSpacingExtra="3dp" />
+    </LinearLayout>
+
+    <!-- Section label -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="INSTALLED APPS"
+        android:textColor="#98989D"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="11sp"
+        android:letterSpacing="0.12"
+        android:paddingHorizontal="24dp"
+        android:paddingBottom="12dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="20dp"
+        android:clipToPadding="false"
+        android:paddingBottom="24dp" />
+
+</LinearLayout>

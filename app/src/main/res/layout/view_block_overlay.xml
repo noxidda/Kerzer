@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#000000"
+    android:gravity="center"
+    android:padding="40dp">
+
+    <FrameLayout
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:background="@drawable/bg_icon_circle_white"
+        android:layout_marginBottom="32dp">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:tint="#000000" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tvBlockTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time to Focus"
+        android:textSize="28sp"
+        android:fontFamily="sans-serif-medium"
+        android:letterSpacing="-0.02"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="12dp" />
+
+    <TextView
+        android:id="@+id/tvBlockMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="This app is blocked by Kerzer."
+        android:textSize="16sp"
+        android:fontFamily="sans-serif"
+        android:textColor="#636366"
+        android:textAlignment="center"/>
+
+</LinearLayout>

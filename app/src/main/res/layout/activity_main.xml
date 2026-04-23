@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:overScrollMode="never">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="16dp">
+
+        <!-- Top breathing room -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="72dp" />
+
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="28dp"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:id="@+id/tvHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:fontFamily="sans-serif-black"
+                android:textColor="#FFFFFF"
+                android:letterSpacing="-0.03"
+                android:textSize="32sp" />
+
+            <TextView
+                android:id="@+id/tvSubHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="daily digital footprints"
+                android:fontFamily="sans-serif"
+                android:textColor="#98989D"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- Main Screen Time Display -->
+        <LinearLayout
+            android:id="@+id/cardTotalUsage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingTop="44dp"
+            android:paddingBottom="40dp"
+            android:paddingHorizontal="28dp">
+
+            <TextView
+                android:id="@+id/tvTotalTimeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SCREEN TIME TODAY"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="#98989D"
+                android:textSize="11sp"
+                android:letterSpacing="0.15"
+                android:layout_marginBottom="12dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="bottom">
+
+                <TextView
+                    android:id="@+id/tvTotalTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:fontFamily="sans-serif-thin"
+                    android:textColor="#FFFFFF"
+                    android:textSize="96sp"
+                    android:letterSpacing="-0.05"
+                    android:includeFontPadding="false" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="h"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#98989D"
+                    android:textSize="36sp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:includeFontPadding="false" />
+
+                <TextView
+                    android:id="@+id/tvTotalTimeMinsLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:fontFamily="sans-serif-thin"
+                    android:textColor="#FFFFFF"
+                    android:textSize="96sp"
+                    android:letterSpacing="-0.05"
+                    android:layout_marginStart="16dp"
+                    android:includeFontPadding="false" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="m"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#98989D"
+                    android:textSize="36sp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:includeFontPadding="false" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <!-- Quick Actions Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="QUICK ACTIONS"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="#98989D"
+            android:textSize="11sp"
+            android:letterSpacing="0.15" />
+
+        <!-- Navigation Buttons Row -->
+        <LinearLayout
+            android:id="@+id/navPills"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:orientation="horizontal">
+
+            <!-- App Usage Button -->
+            <LinearLayout
+                android:id="@+id/btnAppUsage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bg_card_white"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <FrameLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_icon_circle_dark"
+                    android:layout_marginBottom="24dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:src="@android:drawable/ic_menu_sort_by_size"
+                        app:tint="#FFFFFF" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Usage"
+                    android:textColor="#000000"
+                    android:fontFamily="sans-serif-medium"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="App stats"
+                    android:textColor="#8E8E93"
+                    android:fontFamily="sans-serif"
+                    android:layout_marginTop="2dp"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- Limits Button -->
+            <LinearLayout
+                android:id="@+id/btnParentalControl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_card_elevated"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <FrameLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_icon_circle_light"
+                    android:layout_marginBottom="24dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:src="@android:drawable/ic_secure"
+                        app:tint="#FFFFFF" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Limits"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="sans-serif-medium"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Set controls"
+                    android:textColor="#98989D"
+                    android:fontFamily="sans-serif"
+                    android:layout_marginTop="2dp"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Focus Mode Card -->
+        <LinearLayout
+            android:id="@+id/btnFocusMode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_card_elevated"
+            android:orientation="horizontal"
+            android:padding="20dp"
+            android:gravity="center_vertical">
+
+            <FrameLayout
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_icon_circle_white"
+                android:layout_marginEnd="16dp">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center"
+                    android:src="@android:drawable/ic_menu_edit"
+                    app:tint="#000000" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Focus Mode"
+                    android:textSize="16sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/tvSetupFocus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tap to select apps..."
+                    android:textSize="13sp"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#98989D" />
+            </LinearLayout>
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switchFocusMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/infoPanel"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="72dp"
+        android:background="@drawable/bg_card_elevated"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ABOUT"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:letterSpacing="0.12" />
+
+        <TextView
+            android:id="@+id/infoText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/app_info"
+            android:fontFamily="sans-serif"
+            android:textColor="#98989D"
+            android:textSize="13sp"
+            android:lineSpacingExtra="2dp" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/infoButton"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_icon_circle_white_full"
+        android:contentDescription="@string/info_button">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="i"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="#000000"
+                android:textSize="22sp" />
+    </FrameLayout>
+</FrameLayout>
