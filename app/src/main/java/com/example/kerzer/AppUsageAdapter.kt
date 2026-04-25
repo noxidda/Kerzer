@@ -59,12 +59,13 @@ class AppUsageAdapter(
                     val hours = app.usageTimeMins / 60
                     val mins = app.usageTimeMins % 60
                     // Clean formatting: skip "0h" prefix, show "< 1m" for sub-minute usage
-                    tvUsageOrLimit.text = when {
+                    val usageText = when {
                         hours > 0 && mins > 0 -> "${hours}h ${mins}m"
                         hours > 0 -> "${hours}h"
                         mins > 0 -> "${mins}m"
                         else -> "< 1m"
                     }
+                    tvUsageOrLimit.text = "Used: $usageText"
                     tvUsageOrLimit.visibility = View.VISIBLE
                     cbSelect.visibility = View.GONE
                     etLimit.visibility = View.GONE
