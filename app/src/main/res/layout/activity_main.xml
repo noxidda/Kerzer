@@ -129,6 +129,34 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/btnAiSuggest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/bg_card_elevated"
+            android:orientation="vertical"
+            android:padding="18dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AI limit suggestions"
+                android:textColor="#FFFFFF"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Get health-based limits for your top 5 apps"
+                android:textColor="#98989D"
+                android:fontFamily="sans-serif"
+                android:textSize="12sp"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
         <!-- Quick Actions Section -->
         <TextView
             android:layout_width="wrap_content"
