@@ -2,7 +2,16 @@ plugins {
     alias(libs.plugins.android.application)
 }
 
+import java.util.Properties
+
 android {
+    val localProperties = Properties().apply {
+        val localFile = rootProject.file("local.properties")
+        if (localFile.exists()) {
+            localFile.inputStream().use { load(it) }
+        }
+    }
+    val geminiApiKey = localProperties.getProperty("gemini.api.key") ?: ""
     namespace = "com.example.kerzer"
     compileSdk {
         version = release(36) {
@@ -18,6 +27,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "GEMINI_API_KEY", "\"$geminiApiKey\"")
     }
 
     buildTypes {
@@ -28,6 +39,9 @@ android {
                 "proguard-rules.pro"
             )
         }
+    }
+    buildFeatures {
+        buildConfig = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
