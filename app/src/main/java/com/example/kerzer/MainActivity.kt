@@ -13,6 +13,11 @@ import android.widget.TextView
 import android.widget.Toast
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import org.json.JSONArray
+import org.json.JSONObject
+import java.net.HttpURLConnection
+import java.net.URL
+import java.util.concurrent.Executors
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var prefs: PrefsManager
     private lateinit var infoPanel: View
     private lateinit var infoButton: View
+    private val aiExecutor = Executors.newSingleThreadExecutor()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +54,10 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<View>(R.id.btnParentalControl).setOnClickListener {
             startActivity(Intent(this, ParentalControlActivity::class.java))
+        }
+
+        findViewById<View>(R.id.btnAiSuggest).setOnClickListener {
+            requestAiLimitSuggestions()
         }
 
         switchFocusMode.isChecked = prefs.isFocusModeActive()
@@ -84,6 +94,136 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun requestAiLimitSuggestions() {
+        val apiKey = BuildConfig.GEMINI_API_KEY
+        if (apiKey.isBlank() || apiKey == "YOUR_API_KEY") {
+            Toast.makeText(this, "Set gemini.api.key in local.properties", Toast.LENGTH_LONG).show()
+            return
+        }
+
+        val topApps = UsageHelper.getInstalledAppsAndUsage(this)
+            .filter { it.usageTimeMins > 0 }
+            .sortedByDescending { it.usageTimeMins }
+            .take(5)
+
+        if (topApps.isEmpty()) {
+            Toast.makeText(this, "Not enough usage data yet", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val prompt = buildString {
+            appendLine("You are a digital wellbeing assistant.")
+            appendLine("Suggest a daily time limit in minutes for each app for better health.")
+            appendLine("Output format: each line 'AppName: Xm' only. No extra commentary.")
+            appendLine("Apps:")
+            topApps.forEach { app ->
+                appendLine("- ${app.appName}: ${app.usageTimeMins} minutes today")
+            }
+        }
+
+        Toast.makeText(this, "Fetching AI suggestions...", Toast.LENGTH_SHORT).show()
+
+        aiExecutor.execute {
+            val result = fetchGeminiText(apiKey, prompt)
+            runOnUiThread {
+                if (result == null) {
+                    Toast.makeText(this, "AI request failed", Toast.LENGTH_LONG).show()
+                } else if (result.contains("ListModels", ignoreCase = true)) {
+                    Toast.makeText(this, "Fetching available models...", Toast.LENGTH_SHORT).show()
+                    aiExecutor.execute {
+                        val models = fetchGeminiModels(apiKey)
+                        runOnUiThread {
+                            androidx.appcompat.app.AlertDialog.Builder(this)
+                                .setTitle("Available Gemini models")
+                                .setMessage(models ?: "Failed to list models")
+                                .setPositiveButton("OK", null)
+                                .show()
+                        }
+                    }
+                } else {
+                    androidx.appcompat.app.AlertDialog.Builder(this)
+                        .setTitle("AI limit suggestions")
+                        .setMessage(result)
+                        .setPositiveButton("OK", null)
+                        .show()
+                }
+            }
+        }
+    }
+
+    private fun fetchGeminiText(apiKey: String, prompt: String): String? {
+        return try {
+            val url = URL(
+                "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=$apiKey"
+            )
+            val conn = url.openConnection() as HttpURLConnection
+            conn.requestMethod = "POST"
+            conn.setRequestProperty("Content-Type", "application/json")
+            conn.connectTimeout = 15000
+            conn.readTimeout = 20000
+            conn.doOutput = true
+
+            val parts = JSONArray().put(JSONObject().put("text", prompt))
+            val contents = JSONArray().put(JSONObject().put("parts", parts))
+            val body = JSONObject().put("contents", contents)
+
+            conn.outputStream.use { os ->
+                os.write(body.toString().toByteArray())
+            }
+
+            val responseCode = conn.responseCode
+            val stream = if (responseCode in 200..299) conn.inputStream else conn.errorStream
+            val responseText = stream.bufferedReader().readText()
+            if (responseCode !in 200..299) {
+                "Error $responseCode:\n$responseText"
+            } else {
+                val json = JSONObject(responseText)
+                val candidates = json.optJSONArray("candidates") ?: return null
+                val content = candidates.getJSONObject(0).getJSONObject("content")
+                val partsArr = content.getJSONArray("parts")
+                partsArr.getJSONObject(0).getString("text")
+            }
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    private fun fetchGeminiModels(apiKey: String): String? {
+        return try {
+            val url = URL("https://generativelanguage.googleapis.com/v1beta/models?key=$apiKey")
+            val conn = url.openConnection() as HttpURLConnection
+            conn.requestMethod = "GET"
+            conn.connectTimeout = 15000
+            conn.readTimeout = 20000
+
+            val responseCode = conn.responseCode
+            val stream = if (responseCode in 200..299) conn.inputStream else conn.errorStream
+            val responseText = stream.bufferedReader().readText()
+            if (responseCode !in 200..299) {
+                "Error $responseCode:\n$responseText"
+            } else {
+                val json = JSONObject(responseText)
+                val models = json.optJSONArray("models") ?: return null
+                val lines = mutableListOf<String>()
+                for (i in 0 until models.length()) {
+                    val model = models.getJSONObject(i)
+                    val name = model.optString("name")
+                    val methods = model.optJSONArray("supportedGenerationMethods")
+                    val methodsList = mutableListOf<String>()
+                    if (methods != null) {
+                        for (j in 0 until methods.length()) {
+                            methodsList.add(methods.getString(j))
+                        }
+                    }
+                    lines.add("$name: ${methodsList.joinToString(", ")}")
+                }
+                lines.joinToString("\n")
+            }
+        } catch (e: Exception) {
+            null
+        }
+    }
+
     private fun hasUsageStatsPermission(): Boolean {
         val appOps = getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
         val mode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -103,5 +243,10 @@ class MainActivity : AppCompatActivity() {
                 startService(serviceIntent)
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        aiExecutor.shutdown()
     }
 }
